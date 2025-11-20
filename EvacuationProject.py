@@ -34,6 +34,8 @@ class Person:
 
 class EvacuationSimulator:
     def __init__(self):
+        self.counter = 1
+
         # --- Load GeoData from QGIS ---
         self.gdf = gpd.read_file(os.getenv("NODES_GEOJSON"))
         self.walks = gpd.read_file(os.getenv("WALKS_GEOJSON"))
@@ -213,8 +215,9 @@ class EvacuationSimulator:
         TICKS = 3000
         print_interval = 10
         for tick in range(TICKS):
-            # if tick % 20 == 0:
-            #     self.draw_graph(tick)
+            if tick == 50:
+                self._download_image()
+            
             #     pass
             # -- Don't need visuals for now
 
@@ -336,6 +339,62 @@ class EvacuationSimulator:
 
         self.ax.set_title(f"Evacuation Simulation - Tick {tick}")
         plt.pause(0.001)
+
+
+    def _download_image(self):
+            
+            fig, ax = plt.subplots(figsize=(8, 6))
+            self.pos = {n: d["pos"] for n, d in self.G.nodes(data=True)}
+
+            # --- Node Visuals ---
+            node_colors = []
+            node_sizes = []
+            labels = {}
+
+            now = time.time()
+
+            for node, data in self.G.nodes(data=True):
+                num_occupants = len(data["occupants"])
+                node_sizes.append(100 + 20 * num_occupants)
+
+                is_bottleneck = (
+                    data["Type"] != "Final" and
+                    any(
+                        p.status == "waiting" and p.current_node == node and
+                        (p.path and len(self.G.nodes[p.path[0]]["occupants"]) >= self.G.nodes[p.path[0]]["width"])
+                        for p in self.people
+                    )
+                )
+                node_colors.append('red' if is_bottleneck else 'skyblue')
+                labels[node] = f'{node}\n{num_occupants}'
+
+            nx.draw(
+                self.G, self.pos, ax=ax, with_labels=True, labels=labels,
+                node_size=node_sizes, node_color=node_colors,
+                edge_color='gray', font_size=8, font_weight='bold'
+            )
+
+            # --- People on Edges ---
+            for person in self.people:
+                if person.status == "moving" and person.on_edge:
+                    start, end = person.on_edge
+                    x0, y0 = self.pos[start]
+                    x1, y1 = self.pos[end]
+
+                    edge_length = self.G.edges[start, end]["length"]
+                    frac = min(person.position_on_edge / edge_length, 1.0)
+                    px = x0 + frac * (x1 - x0)
+                    py = y0 + frac * (y1 - y0)
+                    ax.plot(px, py, 'o', color='black', markersize=4)
+
+            ax.set_title(f"Evacuation Optimisation:  Brute Force - Simulation {self.counter}")
+            self.counter += 1
+
+            # --- Save figure ---
+            os.makedirs("bruteforce", exist_ok=True)
+            filename = f"time_{str(now)}.png"  # zero-padded numbers
+            plt.savefig(filename)
+            plt.close(ax.figure)  # Close to free memory
 
 # ---  draws a static graph of the network (used for the evolution to show which exit was the most successfull)
 
@@ -816,7 +875,7 @@ class EvacuationSimulator:
 
 
 a = EvacuationSimulator()
-a.simulate()
+# a.simulate()
 
 # --- Simulation Loop ---
 print("="*60)
@@ -828,19 +887,19 @@ end_time = time.time()     # Record end time
 
 print("Execution time of brute force:", end_time - start_time, "seconds")
 
-# Run GA
-print("\n" + "="*60)
-print("GENETIC ALGORITHM SEARCH")  
-print("="*60)
+# # Run GA
+# print("\n" + "="*60)
+# print("GENETIC ALGORITHM SEARCH")  
+# print("="*60)
 
-start_time = time.time() # Record start time
-ga_pos, ga_time, ga_history = a.genetic_algorithm_exit_placement(
-    population_size=20,
-    generations=5,
-    mutation_rate=0.8,
-    mutation_distance=0.3)
-end_time = time.time()     # Record end time
+# start_time = time.time() # Record start time
+# ga_pos, ga_time, ga_history = a.genetic_algorithm_exit_placement(
+#     population_size=20,
+#     generations=5,
+#     mutation_rate=0.8,
+#     mutation_distance=0.3)
+# end_time = time.time()     # Record end time
 
-print("Execution time of brute force:", end_time - start_time, "seconds")
+# print("Execution time of brute force:", end_time - start_time, "seconds")
 
-time.sleep(10000)
+# time.sleep(10000)

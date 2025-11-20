@@ -14,6 +14,7 @@
 [🎥 View Demo](#-demo) <!--- • [📖 Read Article](https://medium.com/@yourhandle) -->• [🚀 Quick Start](#-quick-start) • [📊 Results](#-results)
 
 ![Simulation Demo](assets/Baseline_Simulation.gif)
+![Brute-Force Optimisation Demo](assets/Evacuation_Optimisation_BF.gif)
 
 ---
 
