@@ -118,9 +118,9 @@ class EvacuationSimulator:
         TICKS = 2000
         print_interval = 10
         for tick in range(TICKS):
-            if tick % 2 == 0:
-                self.draw_graph(tick)
-                pass
+            # if tick % 2 == 0:
+            #     self.draw_graph(tick)
+            #     pass
             # -- Don't need visuals for now
 
             exited = self._count_exited()
@@ -816,24 +816,31 @@ class EvacuationSimulator:
 
 
 a = EvacuationSimulator()
-# a.simulate()
+a.simulate()
 
 # --- Simulation Loop ---
 print("="*60)
 print("BRUTE FORCE SEARCH")
 print("="*60)
-bf_pos, bf_time, bf_results = a.brute_force_exit_placement(num_samples=5)
+start_time = time.time()     # Record start time
+bf_pos, bf_time, bf_results = a.brute_force_exit_placement(num_samples=50)
+end_time = time.time()     # Record end time
+
+print("Execution time of brute force:", end_time - start_time, "seconds")
 
 # Run GA
 print("\n" + "="*60)
 print("GENETIC ALGORITHM SEARCH")  
 print("="*60)
+
+start_time = time.time() # Record start time
 ga_pos, ga_time, ga_history = a.genetic_algorithm_exit_placement(
     population_size=20,
     generations=5,
     mutation_rate=0.8,
-    mutation_distance=0.3
-)
+    mutation_distance=0.3)
+end_time = time.time()     # Record end time
 
+print("Execution time of brute force:", end_time - start_time, "seconds")
 
 time.sleep(10000)
