@@ -15,7 +15,6 @@
 
 ![Simulation Demo](assets/Baseline_Simulation.gif)
 
-(Baseline Simulation (no optimisation))
 ---
 
 </div>
