@@ -13,9 +13,9 @@
 
 [🎥 View Demo](#-demo) <!--- • [📖 Read Article](https://medium.com/@yourhandle) -->• [🚀 Quick Start](#-quick-start) • [📊 Results](#-results)
 
-![Simulation Demo](assets/Baseline_Simulation.gif)
+<img src="assets/Baseline_Simulation.gif" alt="Simulation GIF" width="300">
 *Figure 1: Evacuation Simulation Demo*
-![Brute-Force Optimisation Demo](assets/Evacuation_Optimisation_BF.gif)
+<img src="assets/Evacuation_Optimisation_BF.gif" alt="Brute-Force Optimisation Demo" width="300">
 *Figure 2: Brute-Force Optimisation Demo*
 
 ---
