@@ -13,9 +13,8 @@
 
 [🎥 View Demo](#-demo) <!--- • [📖 Read Article](https://medium.com/@yourhandle) -->• [🚀 Quick Start](#-quick-start) • [📊 Results](#-results)
 
-Baseline Simulation (no optimisation)
 ![Simulation Demo](assets/Baseline_Simulation.gif)
-
+(Baseline Simulation (no optimisation))
 ---
 
 </div>
