@@ -35,6 +35,7 @@ class Person:
 class EvacuationSimulator:
     def __init__(self):
         self.counter = 1
+        self.anothercounter=0
 
         # --- Load GeoData from QGIS ---
         self.gdf = gpd.read_file(os.getenv("NODES_GEOJSON"))
@@ -120,8 +121,8 @@ class EvacuationSimulator:
         TICKS = 2000
         print_interval = 10
         for tick in range(TICKS):
-            # if tick % 2 == 0:
-            #     self.draw_graph(tick)
+            if tick % 1 == 0:
+                self.draw_graph(tick)
             #     pass
             # -- Don't need visuals for now
 
@@ -287,7 +288,6 @@ class EvacuationSimulator:
     def _init_visuals(self):
         plt.ion()
         self.fig, self.ax = plt.subplots(figsize=(8, 6))
-        self.fig.canvas.manager.full_screen_toggle()
         self.pos = {n: d["pos"] for n, d in self.G.nodes(data=True)}
 
 # ---  draws the graph (for the moving simulation, not a static image of the graph)
@@ -313,7 +313,12 @@ class EvacuationSimulator:
                 )
             )
             node_colors.append('red' if is_bottleneck else 'skyblue')
-            labels[node] = f'{node}\n{num_occupants}'
+            labels[node] = f'room_{self.anothercounter}\n{num_occupants}'
+            if data["Type"] == "Final":
+                labels[node] = f'EXIT'
+                
+            self.anothercounter+=1
+
 
         nx.draw(
             self.G, self.pos, ax=self.ax, with_labels=True, labels=labels,
@@ -339,6 +344,8 @@ class EvacuationSimulator:
 
         self.ax.set_title(f"Evacuation Simulation - Tick {tick}")
         plt.pause(0.001)
+
+        self.anothercounter = 0
 
 
     def _download_image(self):
@@ -875,17 +882,17 @@ class EvacuationSimulator:
 
 
 a = EvacuationSimulator()
-# a.simulate()
+a.simulate()
 
 # --- Simulation Loop ---
-print("="*60)
-print("BRUTE FORCE SEARCH")
-print("="*60)
-start_time = time.time()     # Record start time
-bf_pos, bf_time, bf_results = a.brute_force_exit_placement(num_samples=50)
-end_time = time.time()     # Record end time
+# print("="*60)
+# print("BRUTE FORCE SEARCH")
+# print("="*60)
+# start_time = time.time()     # Record start time
+# bf_pos, bf_time, bf_results = a.brute_force_exit_placement(num_samples=50)
+# end_time = time.time()     # Record end time
 
-print("Execution time of brute force:", end_time - start_time, "seconds")
+# print("Execution time of brute force:", end_time - start_time, "seconds")
 
 # # Run GA
 # print("\n" + "="*60)
