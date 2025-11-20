@@ -11,7 +11,7 @@
 
 **Agent-based evacuation simulation with genetic algorithm optimization for emergency exit placement**
 
-[🎥 View Demo](#-demo) <!--- • [📖 Read Article](https://medium.com/@yourhandle) -->• [🚀 Quick Start](#-quick-start) • [📊 Results](#-results)
+• [🎥 View Visualisations](#-demo) <!--- • [📖 Read Article](https://medium.com/@yourhandle) -->• [🚀 Quick Start](#-quick-start) • [📊 Results](#-results)
 
 <div style="text-align: center; margin-bottom: 20px;">
   <img src="assets/Baseline_Simulation.gif" alt="Simulation GIF" width="550">
