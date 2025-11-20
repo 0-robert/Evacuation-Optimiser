@@ -14,12 +14,12 @@
 [🎥 View Demo](#-demo) <!--- • [📖 Read Article](https://medium.com/@yourhandle) -->• [🚀 Quick Start](#-quick-start) • [📊 Results](#-results)
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <img src="assets/Baseline_Simulation.gif" alt="Simulation GIF" width="450">
+  <img src="assets/Baseline_Simulation.gif" alt="Simulation GIF" width="550">
   <div><em>Figure 1: Evacuation Simulation Demo</em></div>
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <img src="assets/Evacuation_Optimisation_BF.gif" alt="Brute-Force Optimisation Demo" width="450">
+  <img src="assets/Evacuation_Optimisation_BF.gif" alt="Brute-Force Optimisation Demo" width="475">
   <div><em>Figure 2: Brute-Force Optimisation Demo</em></div>
 </div>
 
