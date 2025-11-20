@@ -20,7 +20,7 @@
 
 <div style="text-align: center; margin-bottom: 20px;">
   <img src="assets/Evacuation_Optimisation_BF.gif" alt="Brute-Force Optimisation Demo" width="475">
-  <div><em>Figure 2: Brute-Force Optimisation Demo</em></div>
+  <div><em>Figure 2: Brute-Force Optimisation (visualised)</em></div>
 </div>
 
 </div>
